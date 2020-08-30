@@ -1,10 +1,7 @@
-FROM alpine:3.5
+FROM alpine
 ENV CONFIG_JSON=none
 RUN apk add --no-cache --virtual .build-deps bash ca-certificates curl unzip \
- && curl https://install.direct/go.sh | bash \
- && rm -rf /usr/bin/v2ray/geoip.dat /usr/bin/v2ray/geosite.dat \
- && chgrp -R 0 /etc/v2ray \
- && chmod -R g+rwX /etc/v2ray
+ && curl -fsSL https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh | bash
 ADD configure.sh /configure.sh
 RUN chmod +x /configure.sh
 ENTRYPOINT /configure.sh
